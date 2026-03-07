@@ -8,6 +8,12 @@ description: Record a competitive programming attempt in this repository when th
 Use this skill to convert active workspace state into a persistent attempt record.
 Prefer `../../scripts/start_attempt.py` when it is implemented. Until then, follow the file contract manually.
 
+## Main Workspace Rule
+- Canonical workspace root: `/Users/study/road_to_grandmaster`
+- If the current session is running inside a Codex worktree or any path other than the canonical root, snapshot and update files in the canonical root instead of the transient worktree.
+- Read and write attempt artifacts from canonical-root paths.
+- When reporting changed files, use canonical-root paths.
+
 ## Read Only If Needed
 - `../../cp-training-system-requirements.md`
 - `../../docs/conventions.md`
@@ -28,13 +34,14 @@ Prefer `../../scripts/start_attempt.py` when it is implemented. Until then, foll
 - Move problem state to `solved` or `review_pending` when justified by the saved attempt
 
 ## Workflow
-1. Read the target `problem.yaml` and active workspace files.
-2. Derive `attempt_id` with local time format `YYYYMMDD-HHMM` unless the user supplied one.
-3. Snapshot `workspace/main.cpp` into `attempts/{attempt_id}/solution.cpp`.
-4. Snapshot the current working notes into `attempts/{attempt_id}/notes.md`.
-5. Create `attempt.yaml` with timestamps, language, status, artifact paths, and short self-assessment if the user provided one.
-6. Save `run.log` with actual command output when available; otherwise create an empty file or leave a clear placeholder.
-7. Update `problem.yaml` so later review work can find the latest attempt without guesswork.
+1. Resolve the canonical workspace root as `/Users/study/road_to_grandmaster` and operate there even if the active shell is inside a worktree.
+2. Read the target `problem.yaml` and active workspace files.
+3. Derive `attempt_id` with local time format `YYYYMMDD-HHMM` unless the user supplied one.
+4. Snapshot `workspace/main.cpp` into `attempts/{attempt_id}/solution.cpp`.
+5. Snapshot the current working notes into `attempts/{attempt_id}/notes.md`.
+6. Create `attempt.yaml` with timestamps, language, status, artifact paths, and short self-assessment if the user provided one.
+7. Save `run.log` with actual command output when available; otherwise create an empty file or leave a clear placeholder.
+8. Update `problem.yaml` so later review work can find the latest attempt without guesswork.
 
 ## Guardrails
 - Do not summarize editorial or ranker content.

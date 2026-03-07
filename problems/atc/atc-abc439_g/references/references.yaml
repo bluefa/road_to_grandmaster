@@ -1,0 +1,14 @@
+schema_version: 1
+references:
+  editorial:
+    url: null
+    status: pending
+    read_at: null
+    summary_keywords: []
+    notes_path: references/editorial.md
+  ranker:
+    url: null
+    status: pending
+    read_at: null
+    summary_keywords: []
+    notes_path: references/ranker.md

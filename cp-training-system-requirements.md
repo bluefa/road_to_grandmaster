@@ -82,6 +82,7 @@ skill과 script는 자유 텍스트 문서가 아니라 YAML 스키마를 공통
 - 플랫폼과 문제 ID 또는 slug를 기준으로 문제 워크스페이스를 생성한다.
 - 기본 메타데이터 YAML과 코드 템플릿을 만든다.
 - 아직 editorial/ranker를 읽지 않았다는 상태를 명시한다.
+- AtCoder 문제의 난이도는 repo에 저장된 로컬 difficulty dataset을 우선 조회한다.
 
 ### 5.2 풀이 수행
 - 사용자는 repo 안의 표준 경로에서 직접 코드를 작성한다.
@@ -112,6 +113,9 @@ skill과 script는 자유 텍스트 문서가 아니라 YAML 스키마를 공통
 .
 ├── cp-training-system-requirements.md
 ├── README.md
+├── data/
+│   └── atcoder/
+│       └── problem-models.json
 ├── docs/
 │   ├── daily-workflow.md
 │   ├── schemas.md
@@ -152,6 +156,7 @@ skill과 script는 자유 텍스트 문서가 아니라 YAML 스키마를 공통
 │       └── SKILL.md
 ├── scripts/
 │   ├── init_problem.py
+│   ├── lookup_atcoder_difficulty.py
 │   ├── start_attempt.py
 │   ├── build_review.py
 │   └── update_session.py
@@ -446,6 +451,7 @@ next_actions:
 - 인자로 플랫폼, 문제 ID/slug, 제목을 받아 문제 디렉토리 생성
 - 템플릿 파일 복사
 - `problem.yaml` 기본값 채우기
+- AtCoder 문제면 로컬 difficulty dataset을 조회해 difficulty를 채운다.
 
 예상 호출:
 ```bash

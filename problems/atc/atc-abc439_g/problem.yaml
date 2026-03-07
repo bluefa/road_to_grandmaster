@@ -1,0 +1,33 @@
+schema_version: 1
+problem:
+  platform: atc
+  contest_id: abc439
+  problem_id: "abc439_g"
+  slug: atc-abc439_g
+  title: "G - TODO"
+  url: https://atcoder.jp/contests/abc439/tasks/abc439_g
+  tags: []
+  difficulty:
+    source: kenkoooo-local
+    value: 3023
+status:
+  state: not_started
+  first_started_at: null
+  last_touched_at: null
+  solved_at: null
+  current_attempt_id: null
+  canonical_solution_path: null
+workflow:
+  language: cpp17
+  workspace_entry: workspace/main.cpp
+  review_required: true
+references:
+  editorial:
+    status: pending
+    path: references/editorial.md
+  ranker:
+    status: pending
+    path: references/ranker.md
+review:
+  status: pending
+  path: review/review.md
