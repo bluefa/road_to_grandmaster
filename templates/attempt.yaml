@@ -1,0 +1,20 @@
+schema_version: 1
+attempt:
+  attempt_id: "__ATTEMPT_ID__"
+  started_at: "__STARTED_AT__"
+  ended_at: "__ENDED_AT__"
+  actor: user
+  language: cpp17
+  status: in_progress
+  submitted: false
+  source_path: workspace/main.cpp
+artifacts:
+  snapshot_path: "attempts/__ATTEMPT_ID__/solution.cpp"
+  notes_path: "attempts/__ATTEMPT_ID__/notes.md"
+  run_log_path: "attempts/__ATTEMPT_ID__/run.log"
+analysis:
+  intended_strategy: ""
+  blockers: []
+  self_assessment:
+    confidence: unknown
+    bug_type: unknown
