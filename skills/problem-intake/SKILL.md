@@ -1,56 +1,59 @@
 ---
 name: problem-intake
-description: Create a new competitive programming problem workspace in this repository when the user starts a new BOJ, Codeforces, AtCoder, or similar problem and needs the standard directory, YAML metadata, workspace files, and optional session entry.
+description: Create a new competitive programming problem workspace for AtCoder or Codeforces from a URL. Wraps scripts/init_problem.py, which handles URL parsing, sample testcase download, difficulty lookup, and idempotent file materialization.
 ---
 
 # Problem Intake
 
-Use this skill to initialize a new problem under `problems/{platform}/{problem_slug}/`.
-Prefer `../../scripts/init_problem.py` when it is implemented. Until then, apply the same contract directly.
+Initialize (or top up) a problem under `problems/{platform}/{problem_slug}/` from an AtCoder or Codeforces URL.
+
+The heavy lifting lives in `../../scripts/init_problem.py`. This skill is a thin wrapper: collect the URL, call the script, interpret the output, and confirm optional follow-ups with the user.
+
+## Scope
+- Supported platforms: **AtCoder** (`atcoder.jp/contests/<c>/tasks/<task>`), **Codeforces** (`codeforces.com/contest/<n>/problem/<i>` or `/problemset/problem/<n>/<i>`).
+- Unsupported URLs raise an error; do not attempt to handle BOJ, CF gym, AtCoder heuristic contests, etc.
 
 ## Main Workspace Rule
-- Canonical workspace root: `/Users/study/road_to_grandmaster`
-- If the current session is running inside a Codex worktree or any path other than the canonical root, create and update files in the canonical root instead of the transient worktree.
-- Before writing, resolve all output paths from `/Users/study/road_to_grandmaster`.
-- When showing the user file locations, prefer canonical-root paths.
-
-## Read Only If Needed
-- `../../cp-training-system-requirements.md`
-- `../../docs/conventions.md`
-- `../../docs/schemas.md`
-- `../../data/atcoder/problem-models.json`
+- Canonical workspace root: `/Users/study/road_to_grandmaster`.
+- If the current session is running inside a worktree or any path other than the canonical root, call the script from the canonical root (e.g. `/Users/study/road_to_grandmaster/scripts/init_problem.py`).
+- Relative paths shown to the user should be canonical-root-relative.
 
 ## Inputs
-- `platform`
-- `problem_id` or existing slug
-- `title`
-- optional `url`
-- optional request to add the problem into today's session
-
-## Required Output
-- Create `problems/{platform}/{problem_slug}/`
-- Materialize `problem.yaml`, `README.md`, `statement.md`
-- Create `workspace/`, `workspace/testcases/`, `attempts/`, `references/`, `review/`
-- Initialize `workspace/main.cpp` and `workspace/notes.md`
-- Initialize empty evidence and review note files
-- For AtCoder problems, fill `problem.difficulty` from the vendored local dataset at `data/atcoder/problem-models.json` when the value can be verified
-- If asked, register the slug in `sessions/{yyyy-mm-dd}.yaml`
+- `url` (required)
+- optional: user asked to register the slug in today's session
+- optional: user asked to refresh testcases or difficulty/limits on an existing problem
 
 ## Workflow
-1. Resolve the canonical workspace root as `/Users/study/road_to_grandmaster` and write there even if the active shell is inside a worktree.
-2. Normalize `problem_slug` as `{platform}-{problem_id}` unless the repo already uses a different explicit slug.
-3. Create the standard problem directory tree without creating attempt snapshots. Include `workspace/testcases/` so the `test-runner` skill can drop sample files there.
-4. Fill `problem.yaml` from the template with `state: not_started` or `in_progress` depending on the user request.
-5. For AtCoder problems, call `../../scripts/lookup_atcoder_difficulty.py <problem_id>` and use its output to populate `problem.difficulty.source` and `problem.difficulty.value`.
-6. If the local dataset does not contain the task id or the value is missing, keep difficulty `null`.
-7. Fill the problem `README.md` so the current state and file entry points are visible.
-8. Initialize `statement.md` as a local summary file, not a full source dump unless the user explicitly wants that.
-9. Leave `references/editorial.md` and `references/ranker.md` empty or skeletal. Do not summarize them before the user has reviewed them.
-10. Update today's session file only if the user asked for queue tracking or the existing workflow clearly requires it.
+1. Ask for the URL if not provided. Do **not** guess a platform from a slug alone.
+2. Invoke the script with the minimal flag set:
+   ```bash
+   /Users/study/road_to_grandmaster/scripts/init_problem.py <url> [flags]
+   ```
+   Flags to use only when the user asks:
+   - `--session` — register today's session entry
+   - `--refresh-testcases` — re-download samples (on an existing problem)
+   - `--refresh-metadata` — overwrite difficulty/time/memory in problem.yaml
+   - `--force-references` / `--force-statement` — reset those files to templates
+   - `--dry-run` — preview actions without writing
+3. Read the script's stdout. It already prints title, limits, difficulty, tags, samples, and a per-file action log. Summarize that back to the user; do not re-derive the paths manually.
+4. On non-zero exit:
+   - `2` → URL not supported. Ask the user for the correct URL form.
+   - `3` → network / curl error. Suggest checking connectivity; do not retry silently more than once.
+   - `4` → parse failure. The platform's HTML likely drifted; report the problem, do not patch the scraper from within the skill.
+   - `5` → guard tripped (no title/samples/limits). Very likely a bad URL. Confirm with the user before any `--no-fetch` retry.
+5. If the user asked to register the attempt in today's session but didn't add `--session`, re-run with the flag (idempotent — the script is a no-op if the slug is already present).
 
 ## Guardrails
 - Do not solve the problem.
-- Do not generate hints.
-- Do not read or summarize editorial or ranker content during intake.
-- Do not invent metadata that is not present; use `null`, empty lists, or placeholders.
-- Do not guess AtCoder difficulty; either verify it from the vendored local dataset or keep it `null`.
+- Do not generate hints or editorial summaries.
+- Do not read or summarize `references/editorial.md` or `references/ranker.md` during intake.
+- Do not bypass the script by creating files directly, **except** when the script fails with exit 4 and the user explicitly asks for a manual skeleton — in that case prefer `--no-fetch` to let the script still handle the directory layout and metadata merge.
+- Never pass `--refresh-testcases`, `--refresh-metadata`, `--force-references`, or `--force-statement` without explicit user consent — they are destructive on already-curated content.
+- The script protects `workspace/main.cpp`, `workspace/notes.md`, `attempts/`, and `review/` under all flag combinations. Do not attempt to circumvent this protection.
+
+## What the script does under the hood (for reference)
+- Parses the URL into `(platform, contest_id, problem_id, slug)`.
+- Fetches the problem page (urllib first, `curl` fallback on 403 — Codeforces requires this).
+- Extracts sample inputs/outputs, time limit, memory limit, and title from the HTML.
+- Calls `scripts/lookup_atcoder_difficulty.py` or `scripts/lookup_codeforces_difficulty.py` for difficulty and tags; the CF cache is auto-refreshed if older than 24h.
+- Writes the problem tree from `templates/*`, merging `problem.yaml` if it already exists (existing non-empty fields win).
