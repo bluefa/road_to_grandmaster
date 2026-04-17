@@ -1,0 +1,27 @@
+schema_version: 1
+references:
+  editorial:
+    primary_url: https://atcoder.jp/contests/abc231/editorial/3089
+    status: collected
+    read_at: 2026-03-22T15:48:40+09:00
+    summary_keywords:
+      - elementary symmetric sums
+      - linearity of expectation
+      - falling factorial
+      - generating function
+      - differential operator
+    sources:
+      - title: Official Editorial
+        url: https://atcoder.jp/contests/abc231/editorial/3089
+        kind: official
+      - title: User Editorial by Kiri8128
+        url: https://atcoder.jp/contests/abc231/editorial/3127
+        kind: user_editorial
+    notes_path: references/editorial.md
+  ranker:
+    primary_url: null
+    status: pending
+    read_at: null
+    summary_keywords: []
+    sources: []
+    notes_path: references/ranker.md

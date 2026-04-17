@@ -1,0 +1,24 @@
+schema_version: 1
+review:
+  generated_at: null
+  based_on_attempt_id: null
+  outcome: pending
+  confidence: unknown
+comparison:
+  my_solution:
+    summary: ""
+    strengths: []
+    weaknesses: []
+  editorial:
+    summary: ""
+    key_points: []
+  ranker:
+    summary: ""
+    key_points: []
+insights:
+  mistakes: []
+  reusable_rules: []
+follow_up:
+  needs_re_solve: false
+  revisit_on: null
+  tags: []

@@ -1,0 +1,12 @@
+schema_version: 1
+review:
+  status: pending
+  problem_slug: cf-1168_c
+  attempt_id: null
+  comparison:
+    my_solution: null
+    editorial: null
+    ranker: null
+  mistakes: []
+  reusable_rules: []
+  next_action: null

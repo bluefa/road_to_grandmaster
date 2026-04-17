@@ -24,10 +24,10 @@ Canonical root is `/Users/study/road_to_grandmaster` for all file writes.
 ## Daily Solve Workflow
 1. Start or update attempt with `attempt-tracker`.
 2. Solve in `workspace/main.cpp` and keep a snapshot under `attempts/{attempt_id}/`.
-3. Save first review-ready evidence:
+3. Run `reference-collector` when editorial notes, ranker notes, or hint-ready reference notes should be saved:
    - `references/editorial.md`
    - `references/ranker.md`
-   - `review/review.md`
+   - `references/references.yaml`
 4. Run `evidence-review` to write grounded comparison results into `review/review.yaml` and `review/review.md`.
 5. Run `daily-manager` to update `sessions/{yyyy-mm-dd}.yaml` action items.
 

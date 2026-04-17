@@ -210,11 +210,13 @@ workspace 메모와 분리해 시점별 컨텍스트를 보존한다.
 
 ### 7.10 `references/references.yaml`
 editorial과 ranker 참조의 메타데이터를 담는다.
-링크, 읽은 시점, 핵심 키워드, 신뢰도 메모를 저장한다.
+대표 링크, 수집한 전체 source 목록, 읽은 시점, 핵심 키워드를 저장한다.
 
 ### 7.11 `references/editorial.md`, `references/ranker.md`
 원문 전체 복제보다 핵심 구조를 정리한 로컬 노트다.
 복기에서 인용할 수 있는 비교 포인트를 뽑아 둔다.
+editorial은 source가 여러 개면 source별 subsection을 둔다.
+ranker는 가능하면 blog보다 accepted submission code를 우선 근거로 삼는다.
 
 ### 7.12 `review/review.yaml`
 복기의 구조화 데이터다.
@@ -408,7 +410,28 @@ next_actions:
 - 근거 없는 회고 생성
 - editorial 요약 생성
 
-### 9.3 `evidence-review`
+### 9.3 `reference-collector`
+역할: editorial/ranker 근거를 수집해 `references/` 아래 로컬 노트와 메타데이터를 채운다.
+
+입력:
+- 문제 경로 또는 slug
+- editorial, ranker, hint 요청 여부
+- 필요 시 특정 제출 또는 특정 유저 링크
+
+출력:
+- `references/editorial.md`
+- `references/ranker.md`
+- `references/references.yaml`
+- `problem.yaml` 내 reference 상태 갱신
+
+강제 규칙:
+- 원문 전체 복제가 아니라 핵심 비교 포인트를 정리한다.
+- 공식 editorial은 task editorial 페이지의 관련 풀이를 가능한 한 모두 수집한다.
+- ranker는 accepted submission code를 우선하고, 글은 보조 근거로만 둔다.
+- ranker 노트는 코드 구조와 구현 트릭을 설명해야 한다.
+- 복기 문서는 생성하지 않는다.
+
+### 9.4 `evidence-review`
 역할: `내 풀이 / editorial / ranker` 비교 기반 복기 생성
 
 입력:
@@ -426,7 +449,7 @@ next_actions:
 - 근거가 없으면 `unknown` 또는 `missing evidence`로 남긴다.
 - 힌트 생성기가 아니라 사후 정리 엔진으로 동작한다.
 
-### 9.4 `daily-manager`
+### 9.5 `daily-manager`
 역할: 일일 큐 관리와 세션 업데이트
 
 입력:
@@ -513,7 +536,7 @@ python scripts/update_session.py --date 2026-03-07 --add-active boj-1234
 2. 새 문제 intake 또는 기존 문제 재개
 3. repo 안에서 직접 풀이
 4. attempt 스냅샷 저장
-5. 필요 시 references 정리
+5. 필요 시 `reference-collector`로 references 정리
 6. evidence review 생성
 7. 세션 종료 시 다음 액션 정리
 
@@ -562,6 +585,7 @@ python scripts/update_session.py --date 2026-03-07 --add-active boj-1234
 - 문제 풀이 코드는 `workspace/`에서 작성하고, 시도 스냅샷은 `attempts/`로 보존한다.
 - 복기의 기준 비교축은 `내 풀이 / editorial / ranker` 세 개다.
 - 최소 skill 세트는 `problem-intake`, `attempt-tracker`, `evidence-review`, `daily-manager`다.
+- reference 수집 자동화를 원하면 `reference-collector`를 추가로 둔다.
 - 세션 관리 단위는 날짜별 YAML 파일이다.
 - AI는 기본적으로 힌트 제공자가 아니라 사후 분석 및 구조화 엔진이다.
 

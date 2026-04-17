@@ -31,4 +31,5 @@
 - `workspace/main.cpp`: active working file
 - `attempts/{attempt_id}/solution.cpp`: immutable snapshot for that attempt
 - `references/*.md`: evidence notes, not full source dumps
+- `references/references.yaml`: metadata for collected reference sources; `primary_url` points to the representative source and `sources` stores the full list of gathered URLs
 - `review/review.md`: grounded retrospective from saved artifacts only

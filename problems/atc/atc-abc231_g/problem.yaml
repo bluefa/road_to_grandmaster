@@ -1,19 +1,19 @@
 schema_version: 1
 problem:
   platform: atc
-  contest_id: abc436
-  problem_id: "abc436_g"
-  slug: atc-abc436_g
-  title: "G - Linear Inequation"
-  url: https://atcoder.jp/contests/abc436/tasks/abc436_g
+  contest_id: abc231
+  problem_id: "abc231_g"
+  slug: atc-abc231_g
+  title: "G - Balls in Boxes"
+  url: https://atcoder.jp/contests/abc231/tasks/abc231_g
   tags: []
   difficulty:
     source: kenkoooo-local
-    value: 2164
+    value: 2606
 status:
-  state: not_started
-  first_started_at: null
-  last_touched_at: null
+  state: in_progress
+  first_started_at: 2026-03-22T15:37:55+09:00
+  last_touched_at: 2026-03-22T15:48:40+09:00
   solved_at: null
   current_attempt_id: null
   canonical_solution_path: null
@@ -26,7 +26,7 @@ references:
     status: collected
     path: references/editorial.md
   ranker:
-    status: collected
+    status: pending
     path: references/ranker.md
 review:
   status: pending

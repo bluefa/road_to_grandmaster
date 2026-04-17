@@ -1,15 +1,20 @@
 schema_version: 1
 problem:
-  platform: atc
-  contest_id: abc436
-  problem_id: "abc436_g"
-  slug: atc-abc436_g
-  title: "G - Linear Inequation"
-  url: https://atcoder.jp/contests/abc436/tasks/abc436_g
-  tags: []
+  platform: cf
+  contest_id: "2190"
+  problem_id: "2190_d"
+  slug: cf-2190_d
+  title: "D - Prufer Vertex"
+  url: https://codeforces.com/problemset/problem/2190/D
+  tags:
+    - combinatorics
+    - dsu
+    - number theory
+    - probabilities
+    - trees
   difficulty:
-    source: kenkoooo-local
-    value: 2164
+    source: codeforces-api
+    value: 2500
 status:
   state: not_started
   first_started_at: null
@@ -23,10 +28,10 @@ workflow:
   review_required: true
 references:
   editorial:
-    status: collected
+    status: pending
     path: references/editorial.md
   ranker:
-    status: collected
+    status: pending
     path: references/ranker.md
 review:
   status: pending

@@ -1,16 +1,14 @@
 schema_version: 1
 references:
   editorial:
-    primary_url: null
+    url: null
     status: pending
     read_at: null
     summary_keywords: []
-    sources: []
     notes_path: references/editorial.md
   ranker:
-    primary_url: null
+    url: null
     status: pending
     read_at: null
     summary_keywords: []
-    sources: []
     notes_path: references/ranker.md

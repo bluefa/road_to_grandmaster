@@ -46,3 +46,14 @@ Required top-level keys:
 - `session`
 - `log`
 - `next_actions`
+
+## `references/references.yaml`
+Tracks collected reference metadata for editorial and ranker notes.
+
+Recommended fields for each of `editorial` and `ranker`:
+- `primary_url`
+- `status`
+- `read_at`
+- `summary_keywords`
+- `sources`
+- `notes_path`

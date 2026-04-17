@@ -1,15 +1,15 @@
 schema_version: 1
 problem:
   platform: atc
-  contest_id: abc436
-  problem_id: "abc436_g"
-  slug: atc-abc436_g
-  title: "G - Linear Inequation"
-  url: https://atcoder.jp/contests/abc436/tasks/abc436_g
+  contest_id: abc230
+  problem_id: "abc230_g"
+  slug: atc-abc230_g
+  title: "G - GCD Permutation"
+  url: https://atcoder.jp/contests/abc230/tasks/abc230_g
   tags: []
   difficulty:
     source: kenkoooo-local
-    value: 2164
+    value: 2516
 status:
   state: not_started
   first_started_at: null
@@ -23,10 +23,10 @@ workflow:
   review_required: true
 references:
   editorial:
-    status: collected
+    status: pending
     path: references/editorial.md
   ranker:
-    status: collected
+    status: pending
     path: references/ranker.md
 review:
   status: pending

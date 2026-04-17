@@ -1,15 +1,17 @@
 schema_version: 1
 problem:
-  platform: atc
-  contest_id: abc436
-  problem_id: "abc436_g"
-  slug: atc-abc436_g
-  title: "G - Linear Inequation"
-  url: https://atcoder.jp/contests/abc436/tasks/abc436_g
-  tags: []
+  platform: cf
+  contest_id: "1168"
+  problem_id: "1168_c"
+  slug: cf-1168_c
+  title: "C - And Reachability"
+  url: https://codeforces.com/problemset/problem/1168/C
+  tags:
+    - bitmasks
+    - dp
   difficulty:
-    source: kenkoooo-local
-    value: 2164
+    source: codeforces-api
+    value: 2200
 status:
   state: not_started
   first_started_at: null
@@ -23,10 +25,10 @@ workflow:
   review_required: true
 references:
   editorial:
-    status: collected
+    status: pending
     path: references/editorial.md
   ranker:
-    status: collected
+    status: pending
     path: references/ranker.md
 review:
   status: pending

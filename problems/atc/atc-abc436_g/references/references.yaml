@@ -1,14 +1,24 @@
 schema_version: 1
 references:
   editorial:
-    url: null
-    status: pending
-    read_at: null
-    summary_keywords: []
+    url: https://atcoder.jp/contests/abc436/editorial/14748?lang=en
+    status: collected
+    read_at: 2026-03-10T23:21:13+0900
+    summary_keywords:
+      - base-d decomposition
+      - remainder multiset
+      - coefficient compression
+      - convolution
+      - logarithmic in M
     notes_path: references/editorial.md
   ranker:
-    url: null
-    status: pending
-    read_at: null
-    summary_keywords: []
+    url: https://kmjp.hatenablog.jp/entry/2025/12/14/0930
+    status: collected
+    read_at: 2026-03-10T23:21:13+0900
+    summary_keywords:
+      - add weight one
+      - equality transformation
+      - generating function
+      - Bostan-Mori
+      - NTT
     notes_path: references/ranker.md
