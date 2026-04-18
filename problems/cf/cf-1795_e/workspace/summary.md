@@ -5,6 +5,5 @@ Build: PASS
 | # | Test Case | Result |
 |---|-----------|--------|
 | 1 | sample_1 | PASS |
-| 2 | sample_2 | PASS |
 
-2/2 passed
+1/1 passed

@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Test: current problem",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/run_tests.sh",
+      "args": ["${fileDirname}"],
+      "group": { "kind": "test", "isDefault": true },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true,
+        "focus": false,
+        "showReuseMessage": false
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}

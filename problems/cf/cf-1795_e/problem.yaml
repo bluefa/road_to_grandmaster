@@ -1,0 +1,40 @@
+schema_version: 1
+problem:
+  platform: cf
+  contest_id: '1795'
+  problem_id: 1795_e
+  slug: cf-1795_e
+  title: E. Explosions?
+  url: https://codeforces.com/problemset/problem/1795/E
+  tags:
+  - binary search
+  - data structures
+  - dp
+  - greedy
+  - math
+  difficulty:
+    source: codeforces-api
+    value: 2200
+  time_limit_ms: 2000
+  memory_limit_mb: 256
+status:
+  state: not_started
+  first_started_at: null
+  last_touched_at: null
+  solved_at: null
+  current_attempt_id: null
+  canonical_solution_path: null
+workflow:
+  language: cpp17
+  workspace_entry: workspace/main.cpp
+  review_required: true
+references:
+  editorial:
+    status: pending
+    path: references/editorial.md
+  ranker:
+    status: pending
+    path: references/ranker.md
+review:
+  status: pending
+  path: review/review.md
